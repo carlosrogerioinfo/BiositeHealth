@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Biosite.Domain.Formulation.Entities.Prescription>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+}
+
+<p>
+    <h2>@Html.ActionLink("Incluir Formulação", "Create")</h2>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            Ação
+        </th>
+        <th>
+            Fórmulação
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "Edit", new { id = item.Id })
+        </td>
+        <td>
+            @Html.ActionLink("Prescever", "PrescriptionDetail", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

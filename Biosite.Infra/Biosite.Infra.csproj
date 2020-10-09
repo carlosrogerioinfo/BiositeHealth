@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{33C393EA-0948-4972-8BC1-FBB69E45EFED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Biosite.Infra</RootNamespace>
+    <AssemblyName>Biosite.Infra</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\202003112045015_biosite11032020_1745.cs" />
+    <Compile Include="Migrations\202003112045015_biosite11032020_1745.designer.cs">
+      <DependentUpon>202003112045015_biosite11032020_1745.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003120435326_biosite_12032020_0135.cs" />
+    <Compile Include="Migrations\202003120435326_biosite_12032020_0135.designer.cs">
+      <DependentUpon>202003120435326_biosite_12032020_0135.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003130409585_biosite_13032020_0109.cs" />
+    <Compile Include="Migrations\202003130409585_biosite_13032020_0109.designer.cs">
+      <DependentUpon>202003130409585_biosite_13032020_0109.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003131855486_biosite_13032020_1555.cs" />
+    <Compile Include="Migrations\202003131855486_biosite_13032020_1555.designer.cs">
+      <DependentUpon>202003131855486_biosite_13032020_1555.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003150401489_biosite_15032020_0101.cs" />
+    <Compile Include="Migrations\202003150401489_biosite_15032020_0101.designer.cs">
+      <DependentUpon>202003150401489_biosite_15032020_0101.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003150404376_biosite_15032020_0105.cs" />
+    <Compile Include="Migrations\202003150404376_biosite_15032020_0105.designer.cs">
+      <DependentUpon>202003150404376_biosite_15032020_0105.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003151458284_biosite_15032020_1159.cs" />
+    <Compile Include="Migrations\202003151458284_biosite_15032020_1159.designer.cs">
+      <DependentUpon>202003151458284_biosite_15032020_1159.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005040151590_biosite_03052020_2251.cs" />
+    <Compile Include="Migrations\202005040151590_biosite_03052020_2251.designer.cs">
+      <DependentUpon>202005040151590_biosite_03052020_2251.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005040153254_biosite_03052020_2253.cs" />
+    <Compile Include="Migrations\202005040153254_biosite_03052020_2253.designer.cs">
+      <DependentUpon>202005040153254_biosite_03052020_2253.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Persistence\Contexts\BiositeDataContext.cs" />
+    <Compile Include="Persistence\Mappings\DiseaseMapping.cs" />
+    <Compile Include="Persistence\Mappings\NutraceuticalMapping.cs" />
+    <Compile Include="Persistence\Mappings\DiseasePrescriptionMapping.cs" />
+    <Compile Include="Persistence\Mappings\PrescriptionDetailMapping.cs" />
+    <Compile Include="Persistence\Mappings\PrescriptionMapping.cs" />
+    <Compile Include="Persistence\Mappings\ExamMapping.cs" />
+    <Compile Include="Persistence\Mappings\UserMapping.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Account\UserRepository.cs" />
+    <Compile Include="Repositories\ExamName\ExamRepository.cs" />
+    <Compile Include="Repositories\Substance\NutraceuticalRepository.cs" />
+    <Compile Include="Repositories\Formulation\PrescriptionRepository.cs" />
+    <Compile Include="Repositories\Problem\DiseaseRepository.cs" />
+    <Compile Include="Transaction\IUnitOfWork.cs" />
+    <Compile Include="Transaction\UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Biosite.Domain\Biosite.Domain.csproj">
+      <Project>{6dc6dc86-892b-4990-b242-67499f90df6c}</Project>
+      <Name>Biosite.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003112045015_biosite11032020_1745.resx">
+      <DependentUpon>202003112045015_biosite11032020_1745.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003120435326_biosite_12032020_0135.resx">
+      <DependentUpon>202003120435326_biosite_12032020_0135.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003130409585_biosite_13032020_0109.resx">
+      <DependentUpon>202003130409585_biosite_13032020_0109.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131855486_biosite_13032020_1555.resx">
+      <DependentUpon>202003131855486_biosite_13032020_1555.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003150401489_biosite_15032020_0101.resx">
+      <DependentUpon>202003150401489_biosite_15032020_0101.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003150404376_biosite_15032020_0105.resx">
+      <DependentUpon>202003150404376_biosite_15032020_0105.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003151458284_biosite_15032020_1159.resx">
+      <DependentUpon>202003151458284_biosite_15032020_1159.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005040151590_biosite_03052020_2251.resx">
+      <DependentUpon>202005040151590_biosite_03052020_2251.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005040153254_biosite_03052020_2253.resx">
+      <DependentUpon>202005040153254_biosite_03052020_2253.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

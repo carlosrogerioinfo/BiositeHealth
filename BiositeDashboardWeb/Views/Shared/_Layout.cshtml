@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <title>@ViewBag.Header </title>
+  <meta content="Admin Dashboard" name="description" />
+  <meta content="@ViewBag.MetaContent" name="author" />
+  <link rel="shortcut icon" href="~/images/favicon.ico">
+  @Styles.Render("~/Content/css")
+  @RenderSection("styles", required: false)
+</head>
+
+<body>
+  <div id="wrapper">
+    @Html.Partial("_Header")
+    <div class="content-page">
+      <!-- Start content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="page-title-box">
+                @Html.Partial("_BreadCrumb")
+                <div class="state-information d-none d-sm-block">
+                  <div class="state-graph">
+                    <div id="header-chart-1"></div>
+                    <div class="info">Homeopáticos 317</div>
+                  </div>
+                  <div class="state-graph">
+                    <div id="header-chart-2"></div>
+                    <div class="info">Fitoterápicos 1230</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end row -->
+
+          @RenderBody()
+        </div>
+      </div><!-- content -->
+      @Html.Partial("_Footer")
+    </div>
+  </div>
+  @Scripts.Render("~/bundles/jquery")
+  @RenderSection("scripts", required: false)
+  <script src="~/Scripts/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+﻿@model Biosite.Domain.Substance.Entities.Nutraceutical
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+}
+
+<div>
+    <h2>@Html.ActionLink("Voltar", "Index")</h2>
+</div>
+
+@using (Html.BeginForm("Edit", "Nutraceuticals", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Prescription</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td>Nome: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Nome Comum: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.CommonName, new { @class = "form-control" })
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Tipo de Nutraceutico: </td>
+                <td>
+                    @Html.DropDownListFor(m => m.NutraceuticalType, new List<SelectListItem>
+                    {
+                        new SelectListItem{Text="Aminoácidos", Value="AminoAcids"},
+                        new SelectListItem{Text="Ácidos Graxos", Value="FattyAcids"},
+                        new SelectListItem{Text="Fitoterapico", Value="Phytotherapies"},
+                        new SelectListItem{Text="Mineral", Value="Minerals"},
+                        new SelectListItem{Text="Nutracêuticos", Value="Nutraceutics"},
+                        new SelectListItem{Text="Nootrópicos", Value="Nootropics"},
+                        new SelectListItem{Text="Nutricosmeticos", Value="NutriCosmetics"},
+                        new SelectListItem{Text="Vitamina", Value="Vitamins"},
+                        new SelectListItem{Text="Probióticos", Value="Probiotics"}
+
+                    }, "Selecione", new { @class = "form-control" })
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Apenas médicos? </td>
+                <td>
+                    <div style="width: 20px; height: 20px; top: -10px; position: relative;">
+                        @Html.CheckBoxFor(m => m.MedicalOnly, new { @class = "form-control" })
+                    </div>
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Farmacologia: </td>
+                <td>
+                    @Html.TextAreaFor(m => m.Pharmacology)
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Mecanismo de Ação: </td>
+                <td>
+                    @Html.TextAreaFor(m => m.ActionMechanism)
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Indicações: </td>
+                <td>
+                    @Html.TextAreaFor(m => m.Indications)
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Contra-Indicações: </td>
+                <td>
+                    @Html.TextAreaFor(m => m.AgainstIndications)
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Reações Adversas: </td>
+                <td>
+                    @Html.TextAreaFor(m => m.AdverseReactions)
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Interações Medicamentosas: </td>
+                <td>
+                    @Html.TextAreaFor(m => m.DrugInteractions)
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Descrição de Dosagens: </td>
+                <td>
+                    @Html.TextAreaFor(m => m.DescriptionDosages)
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Dosagem Mínima: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.MinDosage, new { @class = "form-control" })
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Dosagem Máxima: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.MaxDosage, new { @class = "form-control" })
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Unidade (mcg /mg /g): </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Unity, new { @class = "form-control" })
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Doses Recomendadas: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.RecomendedDosages, new { @class = "form-control" })
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td>Referências: </td>
+                <td>
+                    @Html.TextAreaFor(m => m.NutraceuticalReferences)
+                </td>
+            </tr>
+
+            <tr><td><br /></td></tr>
+
+            <tr>
+                <td></td>
+                <td><input type="submit" value="SALVAR" /></td>
+            </tr>
+
+        </table>
+
+
+  
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+@section scripts{
+    <script src="~/plugins/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if ($("#Pharmacology").length > 0) {
+                tinymce.init({
+                    selector: "textarea#Pharmacology",
+                    theme: "modern",
+                    height: 200,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#ActionMechanism").length > 0) {
+                tinymce.init({
+                    selector: "textarea#ActionMechanism",
+                    theme: "modern",
+                    height: 200,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#Indications").length > 0) {
+                tinymce.init({
+                    selector: "textarea#Indications",
+                    theme: "modern",
+                    height: 200,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#AgainstIndications").length > 0) {
+                tinymce.init({
+                    selector: "textarea#AgainstIndications",
+                    theme: "modern",
+                    height: 200,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#AdverseReactions").length > 0) {
+                tinymce.init({
+                    selector: "textarea#AdverseReactions",
+                    theme: "modern",
+                    height: 200,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#DrugInteractions").length > 0) {
+                tinymce.init({
+                    selector: "textarea#DrugInteractions",
+                    theme: "modern",
+                    height: 200,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#DescriptionDosages").length > 0) {
+                tinymce.init({
+                    selector: "textarea#DescriptionDosages",
+                    theme: "modern",
+                    height: 200,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#NutraceuticalReferences").length > 0) {
+                tinymce.init({
+                    selector: "textarea#NutraceuticalReferences",
+                    theme: "modern",
+                    height: 200,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+
+        });
+    </script>
+}

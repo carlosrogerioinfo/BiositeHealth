@@ -1,0 +1,60 @@
+﻿@model Biosite.Domain.Problem.Entities.DiseasePrescription
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Inclusão Doença/Prescrição</h2>
+
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+}
+
+
+<div class="row">
+    <div class="col-9">
+        <div class="card m-b-20">
+            <div class="card-body">
+
+                <div>
+                    <h2>@Html.ActionLink("Voltar", "DiseasePrescriptionShow")</h2>
+                </div>
+
+                @using (Html.BeginForm("CreateDiseasePrescription", "Disease", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "Reset Password non riuscito")
+
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>Doença: </td>
+                            <td>
+                                @Html.DropDownListFor(x => x.DiseaseId, new SelectList(ViewBag.Diseases, "Id", "Name"), "Selecione", new { @class = "form-control" })
+                            </td>
+                        </tr>
+
+                        <tr><td><br /></td></tr>
+                        <tr>
+                            <td>Prescrição: </td>
+                            <td>
+                                @Html.DropDownListFor(x => x.PrescriptionId, new SelectList(ViewBag.Prescriptions, "Id", "Name"), "Selecione", new { @class = "form-control" })
+                            </td>
+                        </tr>
+
+                        <tr><td><br /></td></tr>
+
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="SALVAR" /></td>
+                        </tr>
+
+                    </table>
+                }
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

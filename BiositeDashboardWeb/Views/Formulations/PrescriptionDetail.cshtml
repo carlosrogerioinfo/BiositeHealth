@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Biosite.Domain.Formulation.Entities.PrescriptionDetail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+}
+
+@{
+    string pid = "/CreatePrescriptionDetail/" + ViewBag.PrescriptionId;
+}
+
+<div>
+    <h2>@Html.ActionLink("Voltar", "Index")</h2>
+</div>
+
+
+<p>
+    <h2>@Html.ActionLink("Incluir Nutraceutico", pid)</h2>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Ativo
+        </th>
+        <th>
+            Dosagem
+        </th>
+        <th>
+            Grupo
+        </th>
+        <th>
+            Posologia
+        </th>
+        <th>
+            Ação
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nutraceutical.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dosage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Posology)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "EditPrescriptionDetail", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

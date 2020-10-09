@@ -1,0 +1,44 @@
+﻿@using BiositeDashBoardWeb.Contants;
+@{
+    string controller = ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    string action = ViewContext.RouteData.Values["action"].ToString().ToLower();
+}
+
+<style type="text/css">
+    .page-title, .breadcrumb .breadcrumb-item {
+        text-transform: capitalize;
+    }
+</style>
+
+@if (controller == "dashboard" && action == "index")
+{
+    <h4 class="page-title">Dashboard</h4>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+
+            @{
+                var userLoged = (Biosite.Domain.Account.Entities.User)ViewBag.UserLoged;
+                var wellcomeMessage = string.Empty;
+                if (userLoged != null)
+                {
+                    wellcomeMessage = string.Concat("Olá ", userLoged.Username, ", seja bem vindo ao Projeto Código ", @ViewBag.Header, "Application | Code #A19102019519100");
+                }
+                else
+                {
+                    wellcomeMessage = "Bem Vindo ao Projeto " + @ViewBag.Header + " Application | Code #A19102019519100";
+                }
+            }
+
+            @wellcomeMessage
+        </li>
+    </ol>
+}
+else
+{
+    <h4 class="page-title">@Menus.actions[action]</h4>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">@ViewBag.Header </a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0);">@Menus.controllers[controller]</a></li>
+        <li class="breadcrumb-item active">@Menus.actions[action]</li>
+    </ol>
+}

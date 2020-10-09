@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Biosite.Domain.Problem.Entities.Disease>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+}
+
+<p>
+    <h2>@Html.ActionLink("Exibir Doença/Prescrição", "DiseasePrescriptionShow")</h2>
+</p>
+<hr />
+<p>
+    <h2>@Html.ActionLink("Incluir Doença", "Create")</h2>
+</p>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            CID
+        </th>
+        <th>
+            Ação
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CID)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "Edit", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+

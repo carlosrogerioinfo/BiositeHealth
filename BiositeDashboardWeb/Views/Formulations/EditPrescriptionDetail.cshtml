@@ -1,0 +1,203 @@
+﻿@model Biosite.Domain.Formulation.Entities.PrescriptionDetail
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ALteração de Detalhes das Prescrições</h2>
+
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+}
+
+
+@{
+    string pid = ViewBag.PrescriptionId;
+}
+
+<div class="row">
+    <div class="col-9">
+        <div class="card m-b-20">
+            <div class="card-body">
+
+                <div>
+                    <h2>@Html.ActionLink("Voltar", string.Concat("PrescriptionDetail", "/", pid))</h2>
+                </div>
+
+                @using (Html.BeginForm("CreatePrescriptionDetail", "Formulations", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "Reset Password non riuscito")
+                    @Html.Hidden("PrescriptionId", pid)
+                    
+
+                    <input type="submit" value="SALVAR" />
+
+                    <table cellpadding="0" cellspacing="0">
+
+                        <tr>
+                            <td>Ativo: </td>
+                            <td>
+                                @Html.DropDownListFor(x => x.NutraceuticalId, new SelectList(ViewBag.Nutraceuticals, "Id", "Name"), "Selecione", new { @class = "form-control" })
+                            </td>
+                        </tr>
+
+                        <tr><td><br /></td></tr>
+
+                        <tr>
+                            <td>Formula Grupo: </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.Group, new List<SelectListItem>
+                                {
+                                    new SelectListItem{Text="Formula I",    Value="1"},
+                                    new SelectListItem{Text="Formula II",   Value="2"},
+                                    new SelectListItem{Text="Formula III",  Value="3"},
+                                    new SelectListItem{Text="Formula IV",   Value="4"},
+                                    new SelectListItem{Text="Formula V",    Value="5"},
+                                    new SelectListItem{Text="Formula VI",   Value="6"},
+                                    new SelectListItem{Text="Formula VII",  Value="7"},
+                                    new SelectListItem{Text="Formula VIII", Value="8"},
+                                    new SelectListItem{Text="Formula IX",   Value="9"},
+                                    new SelectListItem{Text="Formula x",    Value="10"}
+
+                                }, "Selecione", new { @class = "form-control" })
+
+
+                            </td>
+                        </tr>
+
+                        <tr><td><br /></td></tr>
+
+                        <tr>
+                            <td>Dosagem: </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Dosage, new { @class = "form-control" })
+                            </td>
+                        </tr>
+
+                        <tr><td><br /></td></tr>
+
+                        <tr>
+                            <td>Posologia: </td>
+                            <td>
+                                @Html.TextAreaFor(m => m.Posology)
+                            </td>
+                        </tr>
+
+                        <tr><td><br /></td></tr>
+
+                        <tr>
+                            <td>Informação: </td>
+                            <td>
+                                @Html.TextAreaFor(m => m.Information)
+                            </td>
+                        </tr>
+
+                        <tr><td><br /></td></tr>
+
+                        <tr>
+                            <td>Nota: </td>
+                            <td>
+                                @Html.TextAreaFor(m => m.Note)
+                            </td>
+                        </tr>
+
+                        <tr><td><br /></td></tr>
+
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="SALVAR" /></td>
+                        </tr>
+
+                    </table>
+                }
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+@section scripts{
+    <script src="~/plugins/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if ($("#Posology").length > 0) {
+                tinymce.init({
+                    selector: "textarea#Posology",
+                    theme: "modern",
+                    height: 100,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#Information").length > 0) {
+                tinymce.init({
+                    selector: "textarea#Information",
+                    theme: "modern",
+                    height: 100,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+            if ($("#Note").length > 0) {
+                tinymce.init({
+                    selector: "textarea#Note",
+                    theme: "modern",
+                    height: 100,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"
+                        , "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"
+                        , "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+
+        });
+    </script>
+}
+
+
+
+

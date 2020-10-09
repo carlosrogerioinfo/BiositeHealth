@@ -1,0 +1,498 @@
+﻿@model ICollection<Biosite.Domain.Account.Entities.User>
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+}
+
+@{
+    
+
+    var aminoAcidsList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.AminoAcidMenu;
+    var phytotherapiesList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.PhytotherapiesMenu;
+    var mineralsList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.MineralsMenu;
+    var nutraceuticalList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.NutraceuticsMenu;
+    var nutriCosmeticsList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.NutriCosmeticsMenu;
+    var vitaminsList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.VitaminsMenu;
+
+    var FattyAcidsList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.FattyAcidsMenu;
+    var ProbioticsList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.ProbioticsMenu;
+
+    var nutraceuticsSum = aminoAcidsList.Count + phytotherapiesList.Count + mineralsList.Count + nutraceuticalList.Count + nutriCosmeticsList.Count + vitaminsList.Count + FattyAcidsList.Count + ProbioticsList.Count;
+    var prescriptionSum = (int)ViewBag.SumPrescription;
+
+}
+
+
+<div class="row">
+
+    @*@{
+            var userList = (ICollection<Biosite.Domain.Account.Entities.User>)ViewBag.UserList;
+            if (userList != null)
+            {
+                foreach (var item in userList)
+                {
+
+                    <a href="#" class="text-dark">
+                        <div class="inbox-item">
+                            <div class="inbox-item-img float-left mr-3"><img src="~/images/users/user-1.jpg" class="thumb-md rounded-circle" alt=""></div>
+                            <h6 class="inbox-item-author mt-0 mb-1">@item.Username</h6>
+                            <p class="inbox-item-text text-muted mb-0">Hey! there I'm available...</p>
+                            <p class="inbox-item-date text-muted">@DateTime.Now.ToString()</p>
+                        </div>
+                    </a>
+
+                }
+            }
+        }*@
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card mini-stat bg-primary">
+            <div class="card-body mini-stat-img">
+                <div class="mini-stat-icon">
+                    <i class="mdi mdi-buffer float-right"></i>
+                </div>
+                <div class="text-white">
+                    <h6 class="text-uppercase mb-3">Fórmulas Cadastradas</h6>
+                    <h4 class="mb-4">@prescriptionSum / 1000</h4>
+                    <span class="badge badge-success">@ViewBag.PrescriptionPercentDone % </span> <span class="ml-2">Desde o último acesso</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card mini-stat bg-primary">
+            <div class="card-body mini-stat-img">
+                <div class="mini-stat-icon">
+                    <i class="ion-mouse float-right"></i>
+                </div>
+                <div class="text-white">
+                    <h6 class="text-uppercase mb-3">Nutracêuticos Cadastrados</h6>
+                    <h4 class="mb-4">@nutraceuticsSum / 1500</h4>
+                    <span class="badge badge-success"> @ViewBag.NutraceuticalsPercentDone % </span> <span class="ml-2">Desde o último acesso</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card mini-stat bg-primary">
+            <div class="card-body mini-stat-img">
+                <div class="mini-stat-icon">
+                    <i class="fas fa-sort-alpha-down float-right"></i>
+                </div>
+                <div class="text-white">
+                    <h6 class="text-uppercase mb-3">Solicitação de Fórmulas</h6>
+                    <h4 class="mb-4">8</h4>
+                    <span class="badge badge-success"> 5 </span> <span class="ml-2">Respondidas</span>
+                    <span class="ml-2"></span>
+                    <span class="badge badge-warning"> 3 </span> <span class="ml-2">Em análise</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card mini-stat bg-primary">
+            <div class="card-body mini-stat-img">
+                <div class="mini-stat-icon">
+                    <i class="far fa-user float-right"></i>
+                </div>
+                <div class="text-white">
+                    <h6 class="text-uppercase mb-3">Assinatura</h6>
+                    <h4 class="mb-4">Premium</h4>
+                    <span class="badge badge-success"> 100% </span> <span class="ml-2">Acesso ilimitado e irrestrito</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Últimos exames analisados</h4>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    @*GRAFICOS: C:\DEVELOPMENT\WEB\BiositeHealthApplication\BiositeDashboardWeb\Scripts\pages\dashboard.js*@
+
+    <div class="col-xl-3">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">PROTEÍNA C REATIVA ULTRASSENSÍVEL</h4>
+
+                <div class="row text-center m-t-20">
+                    <div class="col-12">
+                        <h5 class="">Ideal</h5>
+                        <h6 class="">Abaixo de 0,5</h6>
+                    </div>
+                </div>
+
+                <div id="morris-donut-example" class="dashboard-charts morris-charts"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">GAMA GT</h4>
+
+                <div class="row text-center m-t-20">
+                    <div class="col-12">
+                        <h5 class="">Ideal</h5>
+                        <h6 class="">Abaixo de 16</h6>
+                    </div>
+                </div>
+
+                <div id="morris-donut-example2" class="dashboard-charts morris-charts"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">ÁCIDO ÚRICO</h4>
+
+                <div class="row text-center m-t-20">
+                    <div class="col-12">
+                        <h5 class="">Ideal</h5>
+                        <h6 class="">Abaixo de 4,9</h6>
+                    </div>
+                </div>
+
+                <div id="morris-donut-example3" class="dashboard-charts morris-charts"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">HOMOCISTEÍNA</h4>
+
+                <div class="row text-center m-t-20">
+                    <div class="col-12">
+                        <h5 class="">Ideal</h5>
+                        <h6 class="">Abaixo de 9</h6>
+                    </div>
+                </div>
+
+                <div id="morris-donut-example4" class="dashboard-charts morris-charts"></div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="col-xl-6">
+            <div class="card m-b-20">
+                <div class="card-body">
+                    <h4 class="mt-0 header-title">Gráfico de Análise Biológica e Funcional de Exames</h4>
+
+                    <div class="row text-center m-t-20">
+                        <div class="col-4">
+                            <h5 class="">140</h5>
+                            <p class="text-muted">Total de Exames Analisados</p>
+                        </div>
+                        <div class="col-4">
+                            <h5 class="">125</h5>
+                            <p class="text-muted">Resultados Satisfatórios</p>
+                        </div>
+                        <div class="col-4">
+                            <h5 class="">15</h5>
+                            <p class="text-muted">Resultados Insatisfatórios</p>
+                        </div>
+                    </div>
+
+                    <div id="morris-area-example" class="dashboard-charts morris-charts"></div>
+                </div>
+            </div>
+        </div>*@
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-xl-6">
+        <div class="card m-b-20">
+            <div class="card-body" style="padding: 1.75rem;">
+                <h4 class="mt-0 m-b-30 header-title">Resultados Mais recentes</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-vertical mb-1">
+
+                        <tbody>
+                            <tr>
+                                <td>Proteína C Reativa Ultrassensível</td>
+                                <td>0,02</td>
+                                <td><span class="badge badge-pill badge-success float-right">Otimizado</span></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>Ácido Úrico</td>
+                                <td>7,5</td>
+                                <td><span class="badge badge-pill badge-warning float-right">Monitorar</span></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="top" title="Sugestão de formulação">
+                                        <a href="@Url.Action("Prescription/18acd2c1-4bf1-48d7-b8d1-1572a52b6d59", "Formulations")">
+                                            <span class="badge badge-pill badge-info">Formulação</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Insulina de Jejum</td>
+                                <td>9,1</td>
+                                <td><span class="badge badge-pill badge-danger float-right">&nbsp; Elevado &nbsp;</span></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="top" title="Sugestão de formulação">
+                                        <a href="@Url.Action("Prescription/18acd2c1-4bf1-48d7-b8d1-1572a52b6d59", "Formulations")">
+                                            <span class="badge badge-pill badge-info">Formulação</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Glicemia de Jejum</td>
+                                <td>90,0</td>
+                                <td><span class="badge badge-pill badge-warning float-right">Monitorar</span></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="top" title="Sugestão de formulação">
+                                        <a href="@Url.Action("Prescription/18acd2c1-4bf1-48d7-b8d1-1572a52b6d59", "Formulations")">
+                                            <span class="badge badge-pill badge-info">Formulação</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>TSH</td>
+                                <td>0,5</td>
+                                <td><span class="badge badge-pill badge-success float-right">Otimizado</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Gama Glutamil Transpeptidase (Gama GT)</td>
+                                <td>13,5</td>
+                                <td><span class="badge badge-pill badge-success float-right">Otimizado</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Fibrinogênio</td>
+                                <td>275,0</td>
+                                <td><span class="badge badge-pill badge-danger float-right">&nbsp; Elevado &nbsp;</span></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="top" title="Sugestão de formulação">
+                                        <a href="@Url.Action("Prescription/18acd2c1-4bf1-48d7-b8d1-1572a52b6d59", "Formulations")">
+                                            <span class="badge badge-pill badge-info">Formulação</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Gráfico de Análise Biológica e Funcional de Exames</h4>
+
+                <div class="row text-center m-t-20">
+                    <div class="col-4">
+                        <h5 class="">140</h5>
+                        <p class="text-muted">Total de Exames Analisados</p>
+                    </div>
+                    <div class="col-4">
+                        <h5 class="">125</h5>
+                        <p class="text-muted">Resultados Satisfatórios</p>
+                    </div>
+                    <div class="col-4">
+                        <h5 class="">15</h5>
+                        <p class="text-muted">Resultados Insatisfatórios</p>
+                    </div>
+                </div>
+
+                <div id="morris-area-example" class="dashboard-charts morris-charts"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-xl-12">
+        <div class="card m-b-20">
+            <div class="card-body" style="padding: 1.75rem;">
+                <h4 class="mt-0 m-b-30 header-title">Resultados Mais recentes</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-vertical mb-1">
+
+                        <tbody>
+                            <tr>
+                                <td>Proteína C Reativa Ultrassensível</td>
+                                <td>0,02</td>
+                                <td><span class="badge badge-pill badge-success">Otimizado</span></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>Ácido Úrico</td>
+                                <td>7,50</td>
+                                <td><span class="badge badge-pill badge-warning">Monitorar</span></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="top" title="Sugestão de formulação">
+                                        <a href="@Url.Action("Prescription/18acd2c1-4bf1-48d7-b8d1-1572a52b6d59", "Formulations")">
+                                            <span class="badge badge-pill badge-info">Formulação</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Insulina de Jejum</td>
+                                <td>9,10</td>
+                                <td><span class="badge badge-pill badge-danger">&nbsp; Elevado &nbsp;</span></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="top" title="Sugestão de formulação">
+                                        <a href="@Url.Action("Prescription/18acd2c1-4bf1-48d7-b8d1-1572a52b6d59", "Formulations")">
+                                            <span class="badge badge-pill badge-info">Formulação</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Glicemia de Jejum</td>
+                                <td>90,00</td>
+                                <td><span class="badge badge-pill badge-warning">Monitorar</span></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="top" title="Sugestão de formulação">
+                                        <a href="@Url.Action("Prescription/18acd2c1-4bf1-48d7-b8d1-1572a52b6d59", "Formulations")">
+                                            <span class="badge badge-pill badge-info">Formulação</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>TSH</td>
+                                <td>0,50</td>
+                                <td><span class="badge badge-pill badge-success">Otimizado</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Gama Glutamil Transpeptidase (Gama GT)</td>
+                                <td>13,50</td>
+                                <td><span class="badge badge-pill badge-success">Otimizado</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Fibrinogênio</td>
+                                <td>275,00</td>
+                                <td><span class="badge badge-pill badge-danger">&nbsp; Elevado &nbsp;</span></td>
+                                <td>
+                                    <span data-toggle="tooltip" data-placement="top" title="Sugestão de formulação">
+                                        <a href="@Url.Action("Prescription/18acd2c1-4bf1-48d7-b8d1-1572a52b6d59", "Formulations")">
+                                            <span class="badge badge-pill badge-info">Formulação</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@{
+
+    var TenMostRecentsNutraceuticalsList = (ICollection<Biosite.Domain.Substance.Entities.Nutraceutical>)ViewBag.TenMostRecentsNutraceuticalsList;
+
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <h4 class="mt-0 m-b-30 header-title">Últimos Nutracêuticos Postados Recentemente</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-vertical mb-1">
+                        <tbody>
+
+                            @{
+                                foreach (Biosite.Domain.Substance.Entities.Nutraceutical item in TenMostRecentsNutraceuticalsList)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("Information/" + item.Id.ToString(), "Nutraceuticals")">@item.Name</a>
+                                        </td>
+                                        <td>
+                                            <span>@item.NutraceuticalDescriptionType</span>
+                                        </td>
+                                        <td>
+                                            <span>@item.LastUpdate</span>
+                                        </td>
+                                        <td><span class="badge badge-pill badge-success">Atualizado</span></td>
+                                        <td>
+                                            <a href="@Url.Action("Information/" + item.Id.ToString(), "Nutraceuticals")" class="btn btn-sm btn-primary">Exibir</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                            @*<tr>
+                                    <td>
+                                        <i class="far fa-sticky-note"></i>
+                                        Ressucitação Cerebral
+                                    </td>
+                                    <td><span class="badge badge-pill badge-success">Atualizado</span></td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-primary">Exibir</a>
+                                    </td>
+                                </tr>*@
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+@section scripts{
+    <script src="~/plugins/morris/morris.min.js"></script>
+    <script src="~/plugins/raphael/raphael-min.js"></script>
+    <script src="~/Scripts/pages/dashboard.js"></script>
+
+
+}

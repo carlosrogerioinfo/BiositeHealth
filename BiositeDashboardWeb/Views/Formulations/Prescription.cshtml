@@ -1,0 +1,313 @@
+﻿@model Biosite.Domain.Formulation.Entities.Prescription
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+}
+
+@{
+    var disease = "";
+    var descriptionDisease = "";
+    if (Model.DiseasePrescription != null)
+    {
+
+        foreach (Biosite.Domain.Problem.Entities.DiseasePrescription item in Model.DiseasePrescription)
+        {
+            disease = item.Disease.Name;
+            descriptionDisease = item.Disease.Description;
+            break;
+        }
+
+    }
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+
+                <div class="col-lg-12">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h3 class="font-14">As informações aqui presentes visam ser uma fonte de informação e consulta destinada primeiramente a médicos e a outros profissionais da área de saúde. Ela não fornece conselhos médicos nem recomendações de tratamentos, e não substitui a necessidade de consultar um especialista na área de saúde.</h3>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="card m-b-30">
+                                        <div class="card-header text-white bg-muted">
+                                            <span class="font-15 text">@disease</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <blockquote class="card-blockquote mb-0 no-border text-align-justify">
+                                                @MvcHtmlString.Create(descriptionDisease)
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="card m-b-30">
+                                        <div class="card-header text-white bg-muted">
+                                            <span class="font-15">Fórmula: @Model.Name</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <blockquote class="card-blockquote mb-0 no-border">
+                                                <p>
+                                                    @MvcHtmlString.Create(Model.Description)
+                                                </p>
+
+                                                <div class="btn-group mo-mb-2">
+                                                    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        O que deseja fazer ?
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Reportar dúvida</a>
+                                                        <a class="dropdown-item" href="#">Enviar fórmula</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="javascript:window.print()">Imprimir</a>
+                                                    </div>
+                                                </div>
+
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @{
+                                var groups = Model.PrescriptionDetails.OrderBy(x => x.Group).Select(m => m.Group).Distinct().ToList();
+                            }
+
+                            <div id="accordion">
+
+                                @{
+                                    var expanded = string.Empty;
+
+                                    foreach (int index in groups)
+                                    {
+
+                                        expanded = (index == 1 ? "show" : string.Empty).ToString();
+                                        var detailGroups = Model.PrescriptionDetails.Where(m => m.Group.Equals(index)).ToList();
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingOne_@index">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#collapseOne_@index" class="text-white" data-toggle="collapse"
+                                                       aria-expanded="true"
+                                                       aria-controls="collapseOne_@index">
+                                                        Formulação - @index
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="collapseOne_@index" class="collapse @expanded"
+                                                 aria-labelledby="headingOne_@index" data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div>
+                                                                <div class="">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table">
+                                                                            <tbody>
+
+                                                                                @{
+                                                                                    var color = "#f8f9fa";
+                                                                                    var posology = "";
+                                                                                    var information = "";
+                                                                                    var note = "";
+
+
+                                                                                    foreach (Biosite.Domain.Formulation.Entities.PrescriptionDetail item in detailGroups.OrderBy(x=>x.Nutraceutical.Name))
+                                                                                    {
+
+                                                                                        if (!string.IsNullOrEmpty(item.Posology))
+                                                                                        {
+                                                                                            posology = item.Posology;
+                                                                                        }
+
+                                                                                        if (!string.IsNullOrEmpty(item.Information))
+                                                                                        {
+                                                                                            information = item.Information;
+                                                                                        }
+
+                                                                                        if (!string.IsNullOrEmpty(item.Note))
+                                                                                        {
+                                                                                            note = item.Note;
+                                                                                        }
+
+                                                                                        if (color.Equals("#f8f9fa"))
+                                                                                        {
+                                                                                            color = "#fff";
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            color = "#f8f9fa";
+                                                                                        }
+
+                                                                                        <tr style="background: @color">
+                                                                                            <td class="font-14">
+                                                                                                <a href="" data-toggle="modal" data-target="#modal_@item.NutraceuticalId">@item.Nutraceutical.Name</a>
+                                                                                                @{
+                                                                                                    if (item.Nutraceutical.MedicalOnly)
+                                                                                                    {
+                                                                                                        <span class="badge badge-pill badge-danger" data-toggle="tooltip" data-placement="top" title="Este tipo de ativo está reservado apenas ao médico prescrever">apenas médicos</span>
+                                                                                                    }
+                                                                                                }
+                                                                                            </td>
+                                                                                            <td class="text-right font-14">@item.Dosage</td>
+                                                                                        </tr>
+
+                                                                                    }
+                                                                                }
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                    @{
+
+                                                                        if (!string.IsNullOrEmpty(posology))
+                                                                        {
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="card m-b-30">
+                                                                                        <div class="card-header text-white bg-muted">
+                                                                                            <span class="font-15">Posologia</span>
+                                                                                        </div>
+                                                                                        <div class="card-body">
+                                                                                            <blockquote class="card-blockquote mb-0 no-border">
+                                                                                                @MvcHtmlString.Create(posology)
+                                                                                            </blockquote>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        }
+
+                                                                    }
+
+                                                                    @{
+
+                                                                        if (!string.IsNullOrEmpty(information))
+                                                                        {
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="card m-b-30">
+                                                                                        <div class="card-header text-white bg-muted">
+                                                                                            <span class="font-15">Informações</span>
+                                                                                        </div>
+                                                                                        <div class="card-body">
+                                                                                            <blockquote class="card-blockquote mb-0 no-border">
+                                                                                                @MvcHtmlString.Create(information)
+                                                                                            </blockquote>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        }
+
+                                                                    }
+
+                                                                    @{
+
+                                                                        if (!string.IsNullOrEmpty(note))
+                                                                        {
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="card m-b-30">
+                                                                                        <div class="card-header text-white bg-danger">
+                                                                                            <span class="font-15">Observações</span>
+                                                                                        </div>
+                                                                                        <div class="card-body">
+                                                                                            <blockquote class="card-blockquote mb-0 no-border">
+                                                                                                @MvcHtmlString.Create(note)
+                                                                                            </blockquote>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        }
+
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-print-none">
+                    <div class="float-right">
+                        <a href="javascript:window.print()" class="btn btn-info waves-effect waves-light"><i class="fa fa-print"></i> Imprimir</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+
+@*MODAL*@
+
+@{
+    var detailModal = Model.PrescriptionDetails.ToList();
+    foreach (Biosite.Domain.Formulation.Entities.PrescriptionDetail item in detailModal)
+    {
+
+        <div id="modal_@item.NutraceuticalId" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myModalLabel">@item.Nutraceutical.Name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Informações</h5>
+                        @MvcHtmlString.Create(item.Nutraceutical.Pharmacology)
+
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <h3 class="font-16"><strong>AVISO</strong></h3>
+                            <p class="font-14">As informações aqui contidas fornecem uma breve descrição a respeito do(a) <strong>@item.Nutraceutical.Name</strong>, para informações mais detalhadas, mecanismo de ação, ação metabólica dentre outras informações, acesse a sessão de Nutracêuticos.</p>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+

@@ -1,0 +1,439 @@
+﻿@model Biosite.Domain.Substance.Entities.Nutraceutical
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/morris/morris.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+
+                <div class="col-lg-12">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+
+                            <h4 class="mt-0">@Html.DisplayFor(m => m.Name)</h4>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h3 class="font-14">As informações aqui presentes visa ser uma fonte de informação e consulta destinada primeiramente a médicos e a outros profissionais da área de saúde. Ela não fornece conselhos médicos nem recomendações de tratamentos, e não substitui a necessidade de consultar um especialista na área de saúde.</h3>
+                            </div>
+
+                            <div id="accordion" style="margin-top: 20px;">
+
+                                @{
+
+                                    if (!string.IsNullOrEmpty(Model.Pharmacology))
+                                    {
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingOne">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#Pharmacology" class="text-white" data-toggle="collapse"
+                                                       aria-expanded="true"
+                                                       aria-controls="Pharmacology">
+                                                        FARMACOLOGIA
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="Pharmacology" class="collapse show"
+                                                 aria-labelledby="headingOne" data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    @MvcHtmlString.Create(Model.Pharmacology)
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+
+                                @{
+
+                                    if (!string.IsNullOrEmpty(Model.ActionMechanism))
+                                    {
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingTwo">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#ActionMechanism" class="text-white collapsed" data-toggle="collapse"
+                                                       aria-expanded="false"
+                                                       aria-controls="ActionMechanism">
+                                                        MECANISMO DE AÇÃO
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="ActionMechanism" class="collapse" aria-labelledby="headingTwo"
+                                                 data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    @MvcHtmlString.Create(Model.ActionMechanism)
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                }
+
+                                @{
+
+                                    if (!string.IsNullOrEmpty(Model.Indications))
+                                    {
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingTwo">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#Indications" class="text-white collapsed" data-toggle="collapse"
+                                                       aria-expanded="false"
+                                                       aria-controls="Indications">
+                                                        INDICAÇÕES
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="Indications" class="collapse" aria-labelledby="headingTwo"
+                                                 data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    @MvcHtmlString.Create(Model.Indications)
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                }
+
+                                @{
+
+                                    if (!string.IsNullOrEmpty(Model.AgainstIndications))
+                                    {
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingTwo">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#AgainstIndications" class="text-white collapsed" data-toggle="collapse"
+                                                       aria-expanded="false"
+                                                       aria-controls="AgainstIndications">
+                                                        CONTRA-INDICAÇÕES
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="AgainstIndications" class="collapse" aria-labelledby="headingTwo"
+                                                 data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    @MvcHtmlString.Create(Model.AgainstIndications)
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                }
+
+                                @{
+
+                                    if (!string.IsNullOrEmpty(Model.AdverseReactions))
+                                    {
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingTwo">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#AdverseReactions" class="text-white collapsed" data-toggle="collapse"
+                                                       aria-expanded="false"
+                                                       aria-controls="AdverseReactions">
+                                                        REAÇÕES ADVERSAS E PRECAUÇÕES
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="AdverseReactions" class="collapse" aria-labelledby="headingTwo"
+                                                 data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    @MvcHtmlString.Create(Model.AdverseReactions)
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                }
+
+                                @{
+
+                                    if (!string.IsNullOrEmpty(Model.DrugInteractions))
+                                    {
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingTwo">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#DrugInteractions" class="text-white collapsed" data-toggle="collapse"
+                                                       aria-expanded="false"
+                                                       aria-controls="DrugInteractions">
+                                                        INTERAÇÕES MEDICAMENTOSAS
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="DrugInteractions" class="collapse" aria-labelledby="headingTwo"
+                                                 data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    @MvcHtmlString.Create(Model.DrugInteractions)
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                }
+
+                                @{
+
+                                    if (!string.IsNullOrEmpty(Model.DescriptionDosages))
+                                    {
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingTwo">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#DescriptionDosages" class="text-white collapsed" data-toggle="collapse"
+                                                       aria-expanded="false"
+                                                       aria-controls="DescriptionDosages">
+                                                        DOSAGENS
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="DescriptionDosages" class="collapse" aria-labelledby="headingTwo"
+                                                 data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    @MvcHtmlString.Create(Model.DescriptionDosages)
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                }
+
+                                @{
+
+                                    if (!string.IsNullOrEmpty(Model.NutraceuticalReferences))
+                                    {
+
+                                        <div class="card mb-1">
+                                            <div class="card-header p-3 bg-muted" id="headingTwo">
+                                                <h6 class="m-0 font-14">
+                                                    <a href="#NutraceuticalReferences" class="text-white collapsed" data-toggle="collapse"
+                                                       aria-expanded="false"
+                                                       aria-controls="NutraceuticalReferences">
+                                                        REFERÊNCIAS
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="NutraceuticalReferences" class="collapse" aria-labelledby="headingTwo"
+                                                 data-parent="#accordion">
+                                                <div class="card-body">
+
+                                                    @MvcHtmlString.Create(Model.NutraceuticalReferences)
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                }
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-print-none">
+                    <div class="float-right">
+                        <a href="javascript:window.print()" class="btn bg-info text-white waves-effect waves-light"><i class="fa fa-print"></i> Imprimir</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+
+
+@*ACORDION*@
+
+
+
+
+
+@*MODAL*@
+
+<div id="modal_1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">Fosfatidilcolina</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <h5>Informações</h5>
+                @MvcHtmlString.Create(Model.AdverseReactions)
+
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <h3 class="font-16"><strong>AVISO</strong></h3>
+                    <p class="font-14">As informações aqui contidas fornecem uma breve descrição a respeito da substância Fosfatidilcolina, para informações mais detalhadas, mecanismo de ação, ação metabólica dentre outras informações, acesse a sessão de Nutracêuticos.</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">Fosfatidilserina</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <h5>Informações</h5>
+                <p>
+                    A fosfatidilcolina, também conhecida como lecitina,
+                    é um fosfolipídeo com função essencial na absorção de
+                    gorduras pelo organismo. É um nutriente não essencial,
+                    ou seja, produzido naturalmente pelo corpo, mas pode
+                    ser encontrado em diversos alimentos, principalmente
+                    na soja e gema de ovo, ou suplementos.
+                </p>
+                <p>
+                    A fosfatidilcolina tem grande importância como
+                    constituinte da membrana celular, mantendo sua
+                    integridade dos neurônios e melhorando a comunicação
+                    intracelular entre esses neurônios. Os dados de
+                    pesquisas científicas indicam que a suplementação
+                    com fosfatidilcolina é capaz de melhorar os sintomas
+                    de doenças mentais associadas a baixos níveis de
+                    acetilcolina, como a esquizofrenia, transtorno
+                    bipolar, síndrome de Tourette, doença de Huntington
+                    e doença de Alzheimer.
+                </p>
+                <p>
+                    De acordo com estudos sobre demência, a administração
+                    de fosfatidilcolina pode resultar em um aumento do
+                    neurotransmissor acetilcolina no cérebro. Além disso,
+                    o uso desse suplemento pode melhorar funções cognitivas
+                    como a memória.
+                </p>
+
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <h3 class="font-16"><strong>AVISO</strong></h3>
+                    <p class="font-14">As informações aqui contidas fornecem uma breve descrição a respeito da substância Fosfatidilcolina, para informações mais detalhadas, mecanismo de ação, ação metabólica dentre outras informações, acesse a sessão de Nutracêuticos.</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">NADH</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <h5>Informações</h5>
+                @MvcHtmlString.Create(Model.AgainstIndications)
+
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <h3 class="font-16"><strong>AVISO</strong></h3>
+                    <p class="font-14">As informações aqui contidas fornecem uma breve descrição a respeito da substância Fosfatidilcolina, para informações mais detalhadas, mecanismo de ação, ação metabólica dentre outras informações, acesse a sessão de Nutracêuticos.</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_4" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">Metilcobalamina</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <h5>Informações</h5>
+                <p>
+                    A fosfatidilcolina, também conhecida como lecitina,
+                    é um fosfolipídeo com função essencial na absorção de
+                    gorduras pelo organismo. É um nutriente não essencial,
+                    ou seja, produzido naturalmente pelo corpo, mas pode
+                    ser encontrado em diversos alimentos, principalmente
+                    na soja e gema de ovo, ou suplementos.
+                </p>
+                <p>
+                    A fosfatidilcolina tem grande importância como
+                    constituinte da membrana celular, mantendo sua
+                    integridade dos neurônios e melhorando a comunicação
+                    intracelular entre esses neurônios. Os dados de
+                    pesquisas científicas indicam que a suplementação
+                    com fosfatidilcolina é capaz de melhorar os sintomas
+                    de doenças mentais associadas a baixos níveis de
+                    acetilcolina, como a esquizofrenia, transtorno
+                    bipolar, síndrome de Tourette, doença de Huntington
+                    e doença de Alzheimer.
+                </p>
+                <p>
+                    De acordo com estudos sobre demência, a administração
+                    de fosfatidilcolina pode resultar em um aumento do
+                    neurotransmissor acetilcolina no cérebro. Além disso,
+                    o uso desse suplemento pode melhorar funções cognitivas
+                    como a memória.
+                </p>
+
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <h3 class="font-16"><strong>AVISO</strong></h3>
+                    <p class="font-14">As informações aqui contidas fornecem uma breve descrição a respeito da substância Fosfatidilcolina, para informações mais detalhadas, mecanismo de ação, ação metabólica dentre outras informações, acesse a sessão de Nutracêuticos.</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
