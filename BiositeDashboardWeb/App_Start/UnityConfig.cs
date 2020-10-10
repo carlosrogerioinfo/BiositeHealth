@@ -46,7 +46,7 @@ namespace BiositeDashBoardWeb
     {
         public static void RegisterComponents()
         {
-			var container = new UnityContainer();
+	    var container = new UnityContainer();
 
             // DataContext ORM and UoW
             container.RegisterType<BiositeDataContext, BiositeDataContext>(new HierarchicalLifetimeManager());
